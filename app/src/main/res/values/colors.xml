@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">@color/aquaBlue</color>
+    <color name="colorPrimaryDark">@color/darkBlueGrayTwo</color>
+    <color name="colorAccent">@color/tomato</color>
+
+    <color name="white">@android:color/white</color>
+    <color name="white40">#66ffffff</color>
+    <color name="black">@android:color/black</color>
+    <color name="red">#f00</color>
+    <color name="transparent">@android:color/transparent</color>
+
+    <color name="textDark">#222222</color>
+    <color name="textLight">@color/white</color>
+
+    <color name="tomato">#e53131</color>
+    <color name="white82">#f6f6f6</color>
+    <color name="aquaBlue">#00b9e3</color>
+    <color name="darkBlueGray">#1d3444</color>
+    <color name="darkBlueGrayTwo">#1e3344</color>
+    <color name="silver">#c7c7cc</color>
+    <color name="silverDark">#999999</color>
+
+    <color name="dividerDark">@color/silverDark</color>
+    <color name="dividerLight">@color/silver</color>
+
+    <color name="page_dot_selected">#4bbbf2</color>
+    <color name="page_dot_unselected">@color/darkBlueGray</color>
+
+    <color name="link">@color/aquaBlue</color>
+
+    <!-- T&C update popup -->
+    <color name="btn_normal">@color/aquaBlue</color>
+    <color name="btn_disable">@color/silverDark</color>
+
+</resources>

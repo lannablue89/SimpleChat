@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.lanna.android.simplechat.viewmodel.ChatViewModel"
+            />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:id="@+id/layout_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/aquaBlue"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/space_medium"
+            android:paddingLeft="@dimen/space_normal"
+            android:paddingRight="@dimen/space_normal"
+            android:paddingTop="@dimen/space_medium"
+            >
+
+            <EditText
+                android:id="@+id/input_view"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/space_normal"
+                android:layout_weight="1"
+                android:textColor="@color/darkBlueGray"
+                android:background="@color/white"
+                android:hint="@string/input_text_chat_here"
+                android:padding="@dimen/space_medium"
+                android:text="@={viewModel.input}"
+                />
+
+            <ImageView
+                android:id="@+id/btnSend"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:minWidth="50dp"
+                android:src="@drawable/ic_send_white"
+                android:tint="@color/white"
+                android:onClick="@{() -> viewModel.sent()}"
+                />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/layout_input"
+            android:background="@color/silver"
+            app:setAdapter="@{viewModel.adapter}"
+            app:items="@{viewModel.items}"
+            tools:listitem="@layout/item_chat"
+            />
+
+    </RelativeLayout>
+</layout>
