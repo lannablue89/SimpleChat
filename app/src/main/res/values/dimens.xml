@@ -29,6 +29,7 @@
     <dimen name="line_large">4dp</dimen>
 
     <dimen name="corner_small">4dp</dimen>
+    <dimen name="corner_normal">8dp</dimen>
 
     <dimen name="text_view_height_min">32dp</dimen>
 
@@ -36,5 +37,13 @@
     <dimen name="button_height_normal">48dp</dimen>
     <dimen name="button_height_large">56dp</dimen>
     <dimen name="button_textSize_medium">@dimen/textSize_body</dimen>
+
+    <!--item chat-->
+    <dimen name="item_chat_corner">12dp</dimen>
+    <dimen name="item_chat_corner_min">2dp</dimen>
+    <dimen name="item_chat_min_height">20dp</dimen>
+    <dimen name="item_chat_padding">5dp</dimen>
+    <dimen name="item_chat_margin_left_or_right">100dp</dimen>
+    <dimen name="item_chat_avatar_size">30dp</dimen>
 
 </resources>

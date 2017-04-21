@@ -16,12 +16,17 @@ public class ChatMessage {
 
     private int id;
     private @UserType int userType;
+    private String name;
     private String message;
 
-    public ChatMessage(int id, @UserType int userType, String message) {
+    private int color;
+
+    public ChatMessage(int id, @UserType int userType, String name, String message, int color) {
         this.id = id;
         this.userType = userType;
+        this.name = name;
         this.message = message;
+        this.color = color;
     }
 
     public int getId() {
@@ -32,7 +37,15 @@ public class ChatMessage {
         return userType;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public String getMessage() {
         return message;
+    }
+
+    public int getColor() {
+        return color;
     }
 }

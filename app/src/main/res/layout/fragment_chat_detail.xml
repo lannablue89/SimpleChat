@@ -61,10 +61,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/layout_input"
-            android:background="@color/silver"
             bind:items="@{viewModel.items}"
             bind:setSelection="@{viewModel.selection}"
             tools:listitem="@layout/item_chat"
+            />
+        <!--android:background="@color/silver"-->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/chat_foreground"
             />
 
     </RelativeLayout>

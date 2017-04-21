@@ -1,6 +1,7 @@
 package com.lanna.android.simplechat.viewmodel;
 
 import android.databinding.Bindable;
+import android.graphics.Color;
 import android.text.TextUtils;
 
 import com.lanna.android.simplechat.BR;
@@ -32,7 +33,9 @@ public class ChatViewModel extends ListViewModel<ChatMessage> {
             @Override
             public void onNext(String value) {
 //                LogUtils.w("onNext: " + value);
-                newMessage(new ChatMessage(getNextChatId(), ChatMessage.UserType.OTHER, value));
+                if (!TextUtils.isEmpty(value)) {
+                    newMessage(new ChatMessage(getNextChatId(), ChatMessage.UserType.OTHER, "other", value, Color.GREEN));
+                }
             }
 
             @Override
@@ -69,7 +72,7 @@ public class ChatViewModel extends ListViewModel<ChatMessage> {
 
     public void sent() {
         if (!TextUtils.isEmpty(input)) {
-            newMessage(new ChatMessage(getNextChatId(), ChatMessage.UserType.ME, input.trim()));
+            newMessage(new ChatMessage(getNextChatId(), ChatMessage.UserType.ME, "me", input.trim(), Color.BLUE));
             input = "";
             notifyPropertyChanged(BR.input);
         }

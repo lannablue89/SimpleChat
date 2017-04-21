@@ -30,8 +30,4 @@
 
     <color name="link">@color/aquaBlue</color>
 
-    <!-- T&C update popup -->
-    <color name="btn_normal">@color/aquaBlue</color>
-    <color name="btn_disable">@color/silverDark</color>
-
 </resources>

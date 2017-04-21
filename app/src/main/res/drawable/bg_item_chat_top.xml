@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true">
+        <shape android:shape="rectangle">
+
+            <solid android:color="@color/colorPrimaryDark"/>
+            <corners
+                android:bottomLeftRadius="@dimen/item_chat_corner"
+                android:bottomRightRadius="@dimen/item_chat_corner_min"
+                android:topLeftRadius="@dimen/item_chat_corner"
+                android:topRightRadius="@dimen/item_chat_corner"/>
+
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+
+            <solid android:color="@color/silver"/>
+            <corners
+                android:bottomLeftRadius="@dimen/item_chat_corner_min"
+                android:bottomRightRadius="@dimen/item_chat_corner"
+                android:topLeftRadius="@dimen/item_chat_corner"
+                android:topRightRadius="@dimen/item_chat_corner"/>
+
+        </shape>
+    </item>
+</selector>

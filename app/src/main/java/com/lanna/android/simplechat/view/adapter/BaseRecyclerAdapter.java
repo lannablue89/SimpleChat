@@ -43,6 +43,11 @@ public abstract class BaseRecyclerAdapter<Item, ViewHolder extends RecyclerView.
     }
 
     public void setItemsAndNotify(List<Item> items) {
+        setItems(items);
+        notifyDataSetChanged();
+    }
+
+    public void setItemsAndNotifyEach(List<Item> items) {
         if (items == null || items.isEmpty()) {
             if (!mItems.isEmpty()) {
                 mItems.clear();
@@ -92,6 +97,6 @@ public abstract class BaseRecyclerAdapter<Item, ViewHolder extends RecyclerView.
     }
 
     public Item getItem(int position) {
-        return (mItems == null || mItems.isEmpty()) ? null : mItems.get(position);
+        return (mItems == null || position < 0 || position >= mItems.size()) ? null : mItems.get(position);
     }
 }

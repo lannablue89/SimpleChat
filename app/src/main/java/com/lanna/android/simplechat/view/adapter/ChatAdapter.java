@@ -38,7 +38,8 @@ public class ChatAdapter extends BaseRecyclerAdapter<ChatMessage, SimpleBindingH
 
     @Override
     public void onBindViewHolder(SimpleBindingHolder<ItemChatBinding> holder, int position) {
-        holder.binding.setViewModel(new ItemChatViewModel(position, getItem(position)));
+        holder.binding.setViewModel(new ItemChatViewModel(position,
+                getItem(position), getItem(position - 1), getItem(position + 1)));
     }
 
 

@@ -1,5 +1,6 @@
 package com.lanna.android.simplechat.view.fragment;
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.lanna.android.simplechat.R;
 import com.lanna.android.simplechat.databinding.FragmentChatDetailBinding;
 import com.lanna.android.simplechat.model.ChatMessage;
 import com.lanna.android.simplechat.view.adapter.BaseRecyclerAdapter;
@@ -46,12 +48,28 @@ public class ChatDetailFragment extends Fragment implements BaseRecyclerAdapter.
     }
 
     public void setupRecyclerView(RecyclerView recyclerView) {
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager lm = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(lm);
+        recyclerView.addItemDecoration(new VerticalSpaceItemDecoration((int) getResources().getDimension(R.dimen.line_normal)));
         recyclerView.setAdapter(adapter);
     }
 
     @Override
     public void onItemClicked(View view, int position, ChatMessage data) {
 
+    }
+
+
+    private class VerticalSpaceItemDecoration extends RecyclerView.ItemDecoration {
+        private final int verticalSpaceHeight;
+
+        public VerticalSpaceItemDecoration(int verticalSpaceHeight) {
+            this.verticalSpaceHeight = verticalSpaceHeight;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            outRect.bottom = verticalSpaceHeight;
+        }
     }
 }
