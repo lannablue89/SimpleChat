@@ -1,8 +1,9 @@
 package com.lanna.android.simplechat.viewmodel;
 
-import android.databinding.ObservableField;
-import android.databinding.ObservableInt;
+import android.databinding.Bindable;
+import android.text.TextUtils;
 
+import com.lanna.android.simplechat.BR;
 import com.lanna.android.simplechat.model.ChatMessage;
 import com.lanna.android.simplechat.model.ChatServiceModel;
 import com.lanna.android.simplechat.util.LogUtils;
@@ -16,8 +17,8 @@ import io.reactivex.disposables.Disposable;
 
 public class ChatViewModel extends ListViewModel<ChatMessage> {
 
-    public ObservableField<String> input = new ObservableField<>();
-    public ObservableInt selection = new ObservableInt(0);
+    private String input;
+    private int selection;
 
     private int chatId = 0;
 
@@ -44,14 +45,34 @@ public class ChatViewModel extends ListViewModel<ChatMessage> {
         });
     }
 
-    private void newMessage(ChatMessage item) {
+    @Bindable
+    public String getInput() {
+        return input;
+    }
+
+    public void setInput(String input) {
+        this.input = input;
+        notifyPropertyChanged(BR.input);
+    }
+
+    @Bindable
+    public int getSelection() {
+        return selection;
+    }
+
+    public void newMessage(ChatMessage item) {
         items.add(item);
-        selection.set(items.size() - 1);
+        selection = items.size() - 1;
+        notifyPropertyChanged(BR.items);
+        notifyPropertyChanged(BR.selection);
     }
 
     public void sent() {
-        newMessage(new ChatMessage(getNextChatId(), ChatMessage.UserType.ME, input.get().trim()));
-        input.set("");
+        if (!TextUtils.isEmpty(input)) {
+            newMessage(new ChatMessage(getNextChatId(), ChatMessage.UserType.ME, input.trim()));
+            input = "";
+            notifyPropertyChanged(BR.input);
+        }
     }
 
     private int getNextChatId() {

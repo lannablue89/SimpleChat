@@ -1,13 +1,12 @@
 package com.lanna.android.simplechat.util;
 
 import android.databinding.BindingAdapter;
-import android.databinding.ObservableInt;
-import android.databinding.ObservableList;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.lanna.android.simplechat.view.adapter.BaseRecyclerAdapter;
+
+import java.util.List;
 
 /**
  * Created by lanna on 4/19/17.
@@ -18,27 +17,25 @@ public class BindingConfigs {
 
     @SuppressWarnings("unchecked")
     @BindingAdapter(value = {"items", "setSelection"}, requireAll = false)
-    public static <T> void bindItemsToList(RecyclerView rv, ObservableList<T> items, ObservableInt selection) {
+    public static void bindItemsToList(RecyclerView rv, List items, int selection) {
         if (rv.getAdapter() != null) {
-            LogUtils.i("rv", "setItemsAndNotify: " + items.size());
+//            LogUtils.i("rv", "setItemsAndNotify: " + items.size());
             ((BaseRecyclerAdapter) rv.getAdapter()).setItemsAndNotify(items);
         }
 
-        int sel = selection == null ? -1 : selection.get();
-        if (sel >= 0) {
+        if (selection >= 0) {
             if (rv.getLayoutManager() instanceof LinearLayoutManager) {
-                    LogUtils.d("rv", "set selection: " + sel);// + " in " + "{" + firstVisiblePos + "," + lastVisiblePos + "}");
-                    rv.smoothScrollToPosition(sel);
-//                }
+//                LogUtils.d("rv", "set selection: " + selection);// + " in " + "{" + firstVisiblePos + "," + lastVisiblePos + "}");
+                rv.smoothScrollToPosition(selection);
             } else {
-                rv.scrollToPosition(sel);
+                rv.scrollToPosition(selection);
             }
         }
     }
 
-    @BindingAdapter("app:onClick")
-    public static void bindOnClick(View view, final Runnable runnable) {
-        view.setOnClickListener(v -> runnable.run());
-    }
+//    @BindingAdapter("bind:onClick")
+//    public static void bindOnClick(View view, final Runnable runnable) {
+//        view.setOnClickListener(v -> runnable.run());
+//    }
 
 }

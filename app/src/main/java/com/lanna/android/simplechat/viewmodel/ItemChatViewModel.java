@@ -24,7 +24,8 @@ public class ItemChatViewModel implements ItemViewModel<ChatMessage> {
     }
 
     public String getContent() {
-        return position + " - " + data.getMessage();
+        return //position + " - " +
+                data.getMessage();
     }
 
     @Override

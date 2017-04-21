@@ -47,7 +47,7 @@ public abstract class BaseRecyclerAdapter<Item, ViewHolder extends RecyclerView.
             if (!mItems.isEmpty()) {
                 mItems.clear();
                 notifyDataSetChanged();
-                LogUtils.d("improve-list-notify", this, "setItemsAndNotify: notify all clear");
+//                LogUtils.d("improve-list-notify", this, "setItemsAndNotify: notify all clear");
             }
             return;
         }
@@ -55,7 +55,7 @@ public abstract class BaseRecyclerAdapter<Item, ViewHolder extends RecyclerView.
         if (mItems.isEmpty()) {
             mItems.addAll(items);
             notifyDataSetChanged();
-            LogUtils.d("improve-list-notify", this, "setItemsAndNotify: notify all from empty");
+//            LogUtils.d("improve-list-notify", this, "setItemsAndNotify: notify all from empty");
         }
 
         Item item;
@@ -67,10 +67,10 @@ public abstract class BaseRecyclerAdapter<Item, ViewHolder extends RecyclerView.
                 if (i >= mItems.size()) {
                     mItems.add(item);
                     notifyItemInserted(i);
-                    LogUtils.d("improve-list-notify", this, "setItemsAndNotify: insert at " + i);
+//                    LogUtils.d("improve-list-notify", this, "setItemsAndNotify: insert at " + i);
                 }
                 else if (!item.equals(mItems.get(i))) {
-                    LogUtils.d("improve-list-notify", "setItemsAndNotify: update at " + i + "\nfrom: " + mItems.get(i) + "\nto: " + item);
+//                    LogUtils.d("improve-list-notify", "setItemsAndNotify: update at " + i + "\nfrom: " + mItems.get(i) + "\nto: " + item);
                     mItems.remove(i);
                     mItems.add(i, item);
                     notifyItemChanged(i);
@@ -79,7 +79,7 @@ public abstract class BaseRecyclerAdapter<Item, ViewHolder extends RecyclerView.
             else if (i < mItems.size()) {
                 mItems.remove(i);
                 notifyItemRemoved(i);
-                LogUtils.d("improve-list-notify", this, "setItemsAndNotify: remove at " + i);
+//                LogUtils.d("improve-list-notify", this, "setItemsAndNotify: remove at " + i);
             }
         }
     }

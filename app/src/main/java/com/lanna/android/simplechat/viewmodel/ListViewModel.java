@@ -1,8 +1,11 @@
 package com.lanna.android.simplechat.viewmodel;
 
-import android.databinding.ObservableArrayList;
-import android.databinding.ObservableList;
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 
+import com.lanna.android.simplechat.BR;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,13 +13,19 @@ import java.util.List;
  *
  */
 
-public class ListViewModel<T> implements ViewModel {
+public class ListViewModel<T>  extends BaseObservable implements ViewModel {
 
-    public final ObservableList<T> items = new ObservableArrayList<>();
+    public final List<T> items = new ArrayList<>();
+
+    @Bindable
+    public List<T> getItems() {
+        return items;
+    }
 
     public void setItems(List<T> items) {
         this.items.clear();
         this.items.addAll(items);
+        notifyPropertyChanged(BR.items);
     }
 
     @Override
