@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lanna.android.simplechat.databinding.FragmentChatDetailBinding;
-import com.lanna.android.simplechat.model.ChatItem;
+import com.lanna.android.simplechat.model.ChatMessage;
 import com.lanna.android.simplechat.view.adapter.BaseRecyclerAdapter;
 import com.lanna.android.simplechat.view.adapter.ChatAdapter;
 import com.lanna.android.simplechat.viewmodel.ChatViewModel;
@@ -19,7 +19,7 @@ import com.lanna.android.simplechat.viewmodel.ChatViewModel;
  * Created by lanna on 4/19/17.
  */
 
-public class ChatDetailFragment extends Fragment implements BaseRecyclerAdapter.OnItemClickListener<ChatItem> {
+public class ChatDetailFragment extends Fragment implements BaseRecyclerAdapter.OnItemClickListener<ChatMessage> {
 
     private FragmentChatDetailBinding binding;
     private ChatViewModel viewModel;
@@ -36,6 +36,9 @@ public class ChatDetailFragment extends Fragment implements BaseRecyclerAdapter.
         binding = FragmentChatDetailBinding.inflate(inflater);
         setupRecyclerView(binding.recyclerView);
         binding.setViewModel(viewModel);
+
+        viewModel.startChatFlow();
+
         return binding.getRoot();
     }
 
@@ -44,7 +47,7 @@ public class ChatDetailFragment extends Fragment implements BaseRecyclerAdapter.
     }
 
     @Override
-    public void onItemClicked(View view, int position, ChatItem data) {
+    public void onItemClicked(View view, int position, ChatMessage data) {
 
     }
 }

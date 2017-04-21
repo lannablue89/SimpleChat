@@ -1,26 +1,32 @@
 package com.lanna.android.simplechat.viewmodel;
 
-import com.lanna.android.simplechat.model.ChatItem;
+import android.databinding.ObservableInt;
+import android.view.Gravity;
+
+import com.lanna.android.simplechat.model.ChatMessage;
 
 /**
  * Created by lanna on 4/19/17.
  *
  */
 
-public class ItemChatViewModel implements ItemViewModel<ChatItem> {
+public class ItemChatViewModel implements ItemViewModel<ChatMessage> {
 
-    private ChatItem data;
+    public ObservableInt gravity = new ObservableInt(Gravity.LEFT);
 
-    public ItemChatViewModel(ChatItem data) {
+    private ChatMessage data;
+
+    public ItemChatViewModel(ChatMessage data) {
         this.data = data;
+        gravity.set(Gravity.CENTER_VERTICAL | (data.getUserType() == ChatMessage.UserType.ME ? Gravity.RIGHT : Gravity.LEFT));
     }
 
     public String getContent() {
-        return data.getText();
+        return data.getMessage();
     }
 
     @Override
-    public ChatItem getData() {
+    public ChatMessage getData() {
         return data;
     }
 }

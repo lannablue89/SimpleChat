@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     >
 
@@ -62,8 +62,9 @@
             android:layout_height="wrap_content"
             android:layout_above="@id/layout_input"
             android:background="@color/silver"
-            app:setAdapter="@{viewModel.adapter}"
-            app:items="@{viewModel.items}"
+            bind:setAdapter="@{viewModel.adapter}"
+            bind:items="@{viewModel.items}"
+            bind:setSelection="@{viewModel.selection}"
             tools:listitem="@layout/item_chat"
             />
 
