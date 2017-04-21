@@ -11,7 +11,7 @@ dependencies:
     pre:
         - sudo add-apt-repository ppa:cwchien/gradle -y
         - sudo apt-get update
-        - sudo apt-get install gradle-2.14.1
+        - sudo apt-get install gradle-3.3
 
         - if [ ! -d "/usr/local/android-sdk-linux/platforms/android-22" ]; then echo y | android update sdk --no-ui --all --filter "android-22"; fi
         - if [ ! -d "/usr/local/android-sdk-linux/build-tools/25.0.2" ]; then echo y | android update sdk --no-ui --all --filter "build-tools-25.0.2"; fi
@@ -20,6 +20,10 @@ dependencies:
         - echo y | android update sdk --no-ui --all --filter "platform-tools, tools"
         - echo y | android update sdk --no-ui --all --filter "extra-android-support"
         #,sys-img-armeabi-v7a-android-21,extra-google-google_play_services,extra-google-m2repository
+
+        - mkdir "$ANDROID_SDK/licenses" || true
+        - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_SDK/licenses/android-sdk-license"
+        - echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_SDK/licenses/android-sdk-preview-license"
 
         - chmod +x gradlew
 
