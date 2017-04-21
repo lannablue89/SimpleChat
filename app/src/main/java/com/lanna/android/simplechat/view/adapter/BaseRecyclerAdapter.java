@@ -1,6 +1,5 @@
 package com.lanna.android.simplechat.view.adapter;
 
-import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -85,7 +84,7 @@ public abstract class BaseRecyclerAdapter<Item, ViewHolder extends RecyclerView.
         }
     }
 
-    protected abstract DiffUtil.Callback newDiffCallback(List<Item> oldList, List<Item> newList);
+//    protected abstract DiffUtil.Callback newDiffCallback(List<Item> oldList, List<Item> newList);
 
     @Override
     public int getItemCount() {

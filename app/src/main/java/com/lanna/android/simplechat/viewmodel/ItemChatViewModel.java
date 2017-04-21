@@ -14,15 +14,17 @@ public class ItemChatViewModel implements ItemViewModel<ChatMessage> {
 
     public ObservableInt gravity = new ObservableInt(Gravity.LEFT);
 
+    private int position;
     private ChatMessage data;
 
-    public ItemChatViewModel(ChatMessage data) {
+    public ItemChatViewModel(int position, ChatMessage data) {
+        this.position = position;
         this.data = data;
         gravity.set(Gravity.CENTER_VERTICAL | (data.getUserType() == ChatMessage.UserType.ME ? Gravity.RIGHT : Gravity.LEFT));
     }
 
     public String getContent() {
-        return data.getMessage();
+        return position + " - " + data.getMessage();
     }
 
     @Override

@@ -62,7 +62,6 @@
             android:layout_height="wrap_content"
             android:layout_above="@id/layout_input"
             android:background="@color/silver"
-            bind:setAdapter="@{viewModel.adapter}"
             bind:items="@{viewModel.items}"
             bind:setSelection="@{viewModel.selection}"
             tools:listitem="@layout/item_chat"

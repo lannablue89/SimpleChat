@@ -17,12 +17,8 @@ import com.lanna.android.simplechat.view.adapter.BaseRecyclerAdapter;
 public class BindingConfigs {
 
     @SuppressWarnings("unchecked")
-    @BindingAdapter(value = {"items", "setAdapter", "setSelection"}, requireAll = false)
-    public static <T> void bindItemsToList(RecyclerView rv, ObservableList<T> items, RecyclerView.Adapter adapter, ObservableInt selection) {
-        if (rv.getAdapter() == null) {
-            LogUtils.i("rv", "setAdapter: ");
-            rv.setAdapter(adapter);
-        }
+    @BindingAdapter(value = {"items", "setSelection"}, requireAll = false)
+    public static <T> void bindItemsToList(RecyclerView rv, ObservableList<T> items, ObservableInt selection) {
         if (rv.getAdapter() != null) {
             LogUtils.i("rv", "setItemsAndNotify: " + items.size());
             ((BaseRecyclerAdapter) rv.getAdapter()).setItemsAndNotify(items);

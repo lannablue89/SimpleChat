@@ -23,22 +23,19 @@ public class ChatServiceModel {
     }
 
     public void startNormalMessageFlow(Observer<String> subscriber) {
-        long startTime = System.currentTimeMillis();
+//        long startTime = System.currentTimeMillis();
         Observable.zip(
                 Observable.range(1, 5)
 //                        .groupBy(n -> n % 5)
-                        .map(n -> n + ". " + randomString(n * 30))
+                        .map(n -> randomString(n * 30))
                 ,
                 Observable.interval(2500, TimeUnit.MILLISECONDS),
                 (obs, timer) -> obs
         )
-                .doOnSubscribe(a -> System.out.println("start ======== " + a))
-                .doOnNext(item -> System.out.println("Item: " + item + ", Time: " + (System.currentTimeMillis() - startTime) + "ms"))
-//                .toList()
+//                .doOnSubscribe(a -> System.out.println("start ======== " + a))
+//                .doOnNext(item -> System.out.println("Item: " + item + ", Time: " + (System.currentTimeMillis() - startTime) + "ms"))
                 .repeat(3)
                 .subscribe(subscriber)
-//                .toBlocking()
-//                .first()
         ;
 
 //        Observable.range(1, 5)
@@ -48,8 +45,6 @@ public class ChatServiceModel {
 ////                .delay(500, TimeUnit.MILLISECONDS)
 //                .repeat(2)
 //                .subscribe(subscriber)
-////                .toCompletable()
-////                .await()
 //        ;
 
     }

@@ -6,7 +6,6 @@ import android.databinding.ObservableInt;
 import com.lanna.android.simplechat.model.ChatMessage;
 import com.lanna.android.simplechat.model.ChatServiceModel;
 import com.lanna.android.simplechat.util.LogUtils;
-import com.lanna.android.simplechat.view.adapter.ChatAdapter;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -15,16 +14,13 @@ import io.reactivex.disposables.Disposable;
  * Created by lanna on 4/19/17.
  */
 
-public class ChatViewModel extends RecyclerViewModel<ChatMessage, ChatAdapter> {
+public class ChatViewModel extends ListViewModel<ChatMessage> {
 
     public ObservableField<String> input = new ObservableField<>();
     public ObservableInt selection = new ObservableInt(0);
 
     private int chatId = 0;
 
-    public ChatViewModel(ChatAdapter adapter) {
-        super(adapter);
-    }
 
     public void startChatFlow() {
         new ChatServiceModel(chatId).startNormalMessageFlow(new Observer<String>() {

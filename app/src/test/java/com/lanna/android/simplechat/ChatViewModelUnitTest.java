@@ -7,12 +7,11 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
 
 public class ChatViewModelUnitTest extends Assert {
     @Test
     public void addChatMe_isCorrect() throws Exception {
-        ChatViewModel model = new ChatViewModel(null);
+        ChatViewModel model = new ChatViewModel();
         String testMessage = "lanna test message";
         model.input.set(testMessage);
         assertEquals(model.items.size(), 1);

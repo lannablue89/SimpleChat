@@ -23,11 +23,13 @@ public class ChatDetailFragment extends Fragment implements BaseRecyclerAdapter.
 
     private FragmentChatDetailBinding binding;
     private ChatViewModel viewModel;
+    private ChatAdapter adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = new ChatViewModel(new ChatAdapter(this));
+        adapter = new ChatAdapter(this);
+        viewModel = new ChatViewModel();
     }
 
     @Nullable
@@ -35,6 +37,7 @@ public class ChatDetailFragment extends Fragment implements BaseRecyclerAdapter.
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentChatDetailBinding.inflate(inflater);
         setupRecyclerView(binding.recyclerView);
+        
         binding.setViewModel(viewModel);
 
         viewModel.startChatFlow();
@@ -44,6 +47,7 @@ public class ChatDetailFragment extends Fragment implements BaseRecyclerAdapter.
 
     public void setupRecyclerView(RecyclerView recyclerView) {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
