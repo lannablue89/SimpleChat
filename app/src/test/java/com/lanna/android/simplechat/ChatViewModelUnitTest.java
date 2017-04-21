@@ -23,13 +23,27 @@ public class ChatViewModelUnitTest extends ApplicationTestCase {
     }
 
     @Test
-    public void addChatMe_isCorrect() throws Exception {
+    public void tesAddChatMe() throws Exception {
         String testMessage = "lanna test message";
         model.setInput(testMessage);
+
         model.sent();
         verify(model).newMessage(any());
+
         assertThat(1, is(model.items.size()));
         assertThat(testMessage, is(model.items.get(0).getMessage()));
         assertThat(ChatMessage.UserType.ME, is(model.items.get(0).getUserType()));
     }
+
+
+    @Test
+    public void tesAddChatOther() throws Exception {
+        String testMessage = "other test message";
+        model.newMessage(new ChatMessage(-1, ChatMessage.UserType.OTHER, testMessage));
+
+        assertThat(1, is(model.items.size()));
+        assertThat(testMessage, is(model.items.get(0).getMessage()));
+        assertThat(ChatMessage.UserType.OTHER, is(model.items.get(0).getUserType()));
+    }
+
 }
