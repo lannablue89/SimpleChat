@@ -14,7 +14,7 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
 
-public class ChatViewModelUnitTest extends ApplicationTestCase {
+public class ChatViewModelTest extends ApplicationTestCase {
 
     private ChatViewModel model;
 

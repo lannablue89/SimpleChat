@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import com.lanna.android.simplechat.databinding.ItemChatMeBinding;
 import com.lanna.android.simplechat.databinding.ItemChatOtherBinding;
 import com.lanna.android.simplechat.model.ChatMessage;
-import com.lanna.android.simplechat.viewmodel.ItemChatMeViewModel;
 import com.lanna.android.simplechat.viewmodel.ItemChatViewModel;
 import com.lanna.android.simplechat.viewmodel.ItemViewModel;
 
@@ -49,12 +48,14 @@ public class ChatAdapter extends BaseRecyclerAdapter<ChatMessage, SimpleBindingH
 
     @Override
     public void onBindViewHolder(SimpleBindingHolder holder, int position) {
+        ItemChatViewModel viewModel = new ItemChatViewModel();
+        viewModel.bindData(position, getItem(position), getItem(position - 1), getItem(position + 1));
+
         if (holder.binding instanceof ItemChatMeBinding) {
-            ((ItemChatMeBinding) holder.binding).setViewModel(new ItemChatMeViewModel(position,
-                    getItem(position), getItem(position - 1), getItem(position + 1)));
+            ((ItemChatMeBinding) holder.binding).setViewModel(viewModel);
+
         } else {
-            ((ItemChatOtherBinding) holder.binding).setViewModel(new ItemChatViewModel(position,
-                    getItem(position), getItem(position - 1), getItem(position + 1)));
+            ((ItemChatOtherBinding) holder.binding).setViewModel(viewModel);
         }
     }
 

@@ -21,6 +21,8 @@ public class ChatMessage {
 
     private int color;
 
+    public ChatMessage() {}
+
     public ChatMessage(int id, @UserType int userType, String name, String message, int color) {
         this.id = id;
         this.userType = userType;
@@ -35,6 +37,10 @@ public class ChatMessage {
 
     public @UserType int getUserType() {
         return userType;
+    }
+
+    public void setUserType(int userType) {
+        this.userType = userType;
     }
 
     public String getName() {

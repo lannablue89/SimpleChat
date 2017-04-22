@@ -24,7 +24,7 @@
         android:gravity="center_vertical"
         android:minHeight="@dimen/item_chat_min_height"
         android:padding="@dimen/item_chat_padding"
-        android:text="@{viewModel.content}"
+        android:text="@{viewModel.message}"
         android:textColor="@color/item_chat_text_selector"
         android:textSize="@dimen/textSize_caption"
         />
