@@ -6,9 +6,14 @@ import android.graphics.Color;
 import android.os.IBinder;
 import android.text.TextUtils;
 
+import com.lanna.android.simplechat.R;
 import com.lanna.android.simplechat.model.ChatMessage;
 import com.lanna.android.simplechat.model.ChatServiceModel;
+import com.lanna.android.simplechat.model.NotificationModel;
 import com.lanna.android.simplechat.util.LogUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import rx.Observer;
 
@@ -19,8 +24,17 @@ import rx.Observer;
 public class ChatService extends Service {
 
     private IBinder mBinder;
-    private int chatId = 0;
+    private int chatId;
+    private List<ChatMessage> items = new ArrayList<>();
+    private NotificationModel notificationModel;
+    private int badge;
+    private ChatServiceModel chatServiceModel;
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        notificationModel = new NotificationModel();
+    }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -41,29 +55,42 @@ public class ChatService extends Service {
 
     public void startChatFlow() {
         LogUtils.v(this, "startChatFlow: ");
-        new ChatServiceModel(chatId).startNormalMessageFlow(new Observer<String>() {
+        if (chatServiceModel == null) {
+            chatServiceModel = new ChatServiceModel();
+            chatServiceModel.startNormalMessageFlow(new Observer<String>() {
 
-            @Override
-            public void onCompleted() { }
+                @Override
+                public void onCompleted() { }
 
-            @Override
-            public void onError(Throwable e) {
-                LogUtils.w("onError: " + e.getMessage());
-            }
-
-            @Override
-            public void onNext(String value) {
-//                LogUtils.d("onNext: " + value);
-                if (!TextUtils.isEmpty(value)) {
-                    notifyNewMessage(new ChatMessage(getNextChatId(), ChatMessage.UserType.OTHER, "other", value, Color.GREEN));
+                @Override
+                public void onError(Throwable e) {
+                    LogUtils.w("onError: " + e.getMessage());
                 }
-            }
-        });
+
+                @Override
+                public void onNext(String value) {
+//                LogUtils.d("onNext: " + value);
+                    if (!TextUtils.isEmpty(value)) {
+                        notifyNewMessage(new ChatMessage(getNextChatId(), ChatMessage.UserType.OTHER, "other", value, Color.GREEN));
+                    }
+                }
+            });
+        }
     }
 
-    private void notifyNewMessage(ChatMessage other) {
-        LogUtils.d(this, "notifyNewMessage: " + other);
-        MyRxBus.getInstance().notifyMessage(other);
+    private void notifyNewMessage(ChatMessage data) {
+        LogUtils.d(this, "notifyNewMessage: " + data);
+        items.add(data);
+
+        if (MyRxBus.getInstance().getEvents().hasObservers()) {
+            badge = 0;
+            MyRxBus.getInstance().notifyData(items);
+        }
+        else {
+            badge ++;
+            notificationModel.generateNotification(this, getString(R.string.app_name),
+                    "You have new " + badge + " messages");
+        }
     }
 
 }

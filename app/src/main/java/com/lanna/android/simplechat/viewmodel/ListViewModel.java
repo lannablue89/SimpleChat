@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ListViewModel<T>  extends BaseObservable implements ViewModel {
 
-    public final List<T> items = new ArrayList<>();
+    public List<T> items = new ArrayList<>();
 
     @Bindable
     public List<T> getItems() {

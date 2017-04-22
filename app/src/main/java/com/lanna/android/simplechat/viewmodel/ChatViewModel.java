@@ -9,6 +9,8 @@ import com.lanna.android.simplechat.model.ChatMessage;
 import com.lanna.android.simplechat.util.LogUtils;
 import com.lanna.android.simplechat.view.service.MyRxBus;
 
+import java.util.List;
+
 import rx.Subscriber;
 import rx.subscriptions.CompositeSubscription;
 
@@ -26,7 +28,7 @@ public class ChatViewModel extends ListViewModel<ChatMessage> {
     private CompositeSubscription compositeSubscription = new CompositeSubscription();
 
     public void refreshData() {
-        compositeSubscription.add(MyRxBus.getInstance().getEvents().subscribe(new Subscriber<ChatMessage>() {
+        compositeSubscription.add(MyRxBus.getInstance().getEvents().subscribe(new Subscriber<List<ChatMessage>>() {
 
             @Override
             public void onCompleted() { }
@@ -37,9 +39,9 @@ public class ChatViewModel extends ListViewModel<ChatMessage> {
             }
 
             @Override
-            public void onNext(ChatMessage chatMessage) {
-                LogUtils.i(ChatViewModel.class, "onNext: " + chatMessage);
-                newMessage(chatMessage);
+            public void onNext(List<ChatMessage> chatMessages) {
+                LogUtils.i(ChatViewModel.class, "onNext: " + chatMessages.get(chatMessages.size()-1));
+                newMessage(chatMessages);
             }
         }));
     }
@@ -59,8 +61,17 @@ public class ChatViewModel extends ListViewModel<ChatMessage> {
         return selection;
     }
 
+    public void newMessage(List<ChatMessage> items) {
+        this.items = items;
+        notifyDataChanged();
+    }
+
     public void newMessage(ChatMessage item) {
         items.add(item);
+        notifyDataChanged();
+    }
+
+    private void notifyDataChanged() {
         selection = items.size() - 1;
         notifyPropertyChanged(BR.items);
         notifyPropertyChanged(BR.selection);

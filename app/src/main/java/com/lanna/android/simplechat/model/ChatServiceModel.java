@@ -13,15 +13,7 @@ import rx.Observer;
 
 public class ChatServiceModel {
 
-//    public String[] FAKE_MESSAGES = {"lanna", "lanna 1", "lanna 2", "lanna 3", "lanna 4", "lanna 5", "lanna 6"};
-
-    private int userId;
-
     private Random generator = new Random();
-
-    public ChatServiceModel(int userId) {
-        this.userId = userId;
-    }
 
     public void startNormalMessageFlow(Observer<String> subscriber) {
         long startTime = System.currentTimeMillis();
@@ -30,7 +22,7 @@ public class ChatServiceModel {
 //                        .groupBy(n -> n % 5)
                         .map(n -> randomString(n * 30))
                 ,
-                Observable.interval(2500, TimeUnit.MILLISECONDS),
+                Observable.interval(3000, TimeUnit.MILLISECONDS),
                 (obs, timer) -> (System.currentTimeMillis() - startTime) + "ms: " + obs
         )
 //                .doOnSubscribe(a -> System.out.println("start ======== " + a))

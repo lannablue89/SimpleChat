@@ -3,6 +3,8 @@ package com.lanna.android.simplechat.view.service;
 
 import com.lanna.android.simplechat.model.ChatMessage;
 
+import java.util.List;
+
 import rx.subjects.PublishSubject;
 
 
@@ -13,7 +15,7 @@ import rx.subjects.PublishSubject;
 public class MyRxBus {
     private static MyRxBus instance;
 
-    private PublishSubject<ChatMessage> subject = PublishSubject.create();
+    private PublishSubject<List<ChatMessage>> subject = PublishSubject.create();
 
     public static MyRxBus getInstance() {
         if (instance == null) {
@@ -25,7 +27,7 @@ public class MyRxBus {
     /**
      * Pass any event down to event listeners.
      */
-    public void notifyMessage(ChatMessage object) {
+    public void notifyData(List<ChatMessage> object) {
         subject.onNext(object);
     }
 
@@ -33,7 +35,7 @@ public class MyRxBus {
      * Subscribe to this Observable. On event, do something
      * e.g. replace a fragment
      */
-    public PublishSubject<ChatMessage> getEvents() {
+    public PublishSubject<List<ChatMessage>> getEvents() {
         return subject;
     }
 }
