@@ -41,8 +41,7 @@ public class ChatDetailFragment extends Fragment implements BaseRecyclerAdapter.
         setupRecyclerView(binding.recyclerView);
         
         binding.setViewModel(viewModel);
-
-        viewModel.startChatFlow();
+        viewModel.refreshData();
 
         return binding.getRoot();
     }
@@ -66,6 +65,11 @@ public class ChatDetailFragment extends Fragment implements BaseRecyclerAdapter.
 
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        viewModel.onDestroy();
+    }
 
 //    private class VerticalSpaceItemDecoration extends RecyclerView.ItemDecoration {
 //        private final int verticalSpaceHeight;

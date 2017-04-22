@@ -3,8 +3,9 @@ package com.lanna.android.simplechat.model;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Observable;
-import io.reactivex.Observer;
+import rx.Observable;
+import rx.Observer;
+
 
 /**
  * Created by lanna on 4/20/17.

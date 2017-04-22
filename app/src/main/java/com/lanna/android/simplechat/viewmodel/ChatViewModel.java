@@ -6,11 +6,12 @@ import android.text.TextUtils;
 
 import com.lanna.android.simplechat.BR;
 import com.lanna.android.simplechat.model.ChatMessage;
-import com.lanna.android.simplechat.model.ChatServiceModel;
 import com.lanna.android.simplechat.util.LogUtils;
+import com.lanna.android.simplechat.view.service.MyRxBus;
 
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
+import rx.Subscriber;
+import rx.subscriptions.CompositeSubscription;
+
 
 /**
  * Created by lanna on 4/19/17.
@@ -20,32 +21,27 @@ public class ChatViewModel extends ListViewModel<ChatMessage> {
 
     private String input;
     private int selection;
+    private int chatId;
 
-    private int chatId = 0;
+    private CompositeSubscription compositeSubscription = new CompositeSubscription();
 
-
-    public void startChatFlow() {
-        new ChatServiceModel(chatId).startNormalMessageFlow(new Observer<String>() {
-
-            @Override
-            public void onSubscribe(Disposable d) { }
+    public void refreshData() {
+        compositeSubscription.add(MyRxBus.getInstance().getEvents().subscribe(new Subscriber<ChatMessage>() {
 
             @Override
-            public void onNext(String value) {
-//                LogUtils.w("onNext: " + value);
-                if (!TextUtils.isEmpty(value)) {
-                    newMessage(new ChatMessage(getNextChatId(), ChatMessage.UserType.OTHER, "other", value, Color.GREEN));
-                }
+            public void onCompleted() { }
+
+            @Override
+            public void onError(Throwable e) {
+                LogUtils.w(ChatViewModel.class, "onNext: " + e.getMessage());
             }
 
             @Override
-            public void onError(Throwable t) {
-                LogUtils.w("onError: " + t.getMessage());
+            public void onNext(ChatMessage chatMessage) {
+                LogUtils.i(ChatViewModel.class, "onNext: " + chatMessage);
+                newMessage(chatMessage);
             }
-
-            @Override
-            public void onComplete() { }
-        });
+        }));
     }
 
     @Bindable
@@ -84,6 +80,6 @@ public class ChatViewModel extends ListViewModel<ChatMessage> {
 
     @Override
     public void onDestroy() {
-
+        compositeSubscription.clear(); // unsubscribe and clear
     }
 }
