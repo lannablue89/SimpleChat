@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.lanna.android.simplechat.viewmodel.ItemChatViewModel"
+            />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        bind:paddingLeft="@{viewModel.dimenLeft}"
+        bind:paddingRight="@{viewModel.dimenRight}"
+        bind:paddingTop="@{viewModel.dimenTop}"
+        >
+
+        <include
+            layout="@layout/include_item_chat_avatar"
+            bind:viewModel="@{viewModel}"
+            />
+
+        <include
+            layout="@layout/include_item_chat_message"
+            bind:viewModel="@{viewModel}"
+            />
+
+    </LinearLayout>
+
+</layout>

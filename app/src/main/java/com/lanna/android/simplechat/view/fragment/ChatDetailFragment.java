@@ -1,20 +1,20 @@
 package com.lanna.android.simplechat.view.fragment;
 
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lanna.android.simplechat.R;
 import com.lanna.android.simplechat.databinding.FragmentChatDetailBinding;
 import com.lanna.android.simplechat.model.ChatMessage;
 import com.lanna.android.simplechat.view.adapter.BaseRecyclerAdapter;
 import com.lanna.android.simplechat.view.adapter.ChatAdapter;
+import com.lanna.android.simplechat.view.custom_view.BottomLinearLayoutManager;
 import com.lanna.android.simplechat.viewmodel.ChatViewModel;
 
 /**
@@ -48,10 +48,17 @@ public class ChatDetailFragment extends Fragment implements BaseRecyclerAdapter.
     }
 
     public void setupRecyclerView(RecyclerView recyclerView) {
-        LinearLayoutManager lm = new LinearLayoutManager(getContext());
+        LinearLayoutManager lm = new BottomLinearLayoutManager(getContext());
         recyclerView.setLayoutManager(lm);
-        recyclerView.addItemDecoration(new VerticalSpaceItemDecoration((int) getResources().getDimension(R.dimen.line_normal)));
+//        recyclerView.addItemDecoration(new VerticalSpaceItemDecoration((int) getResources().getDimension(R.dimen.line_normal)));
         recyclerView.setAdapter(adapter);
+        recyclerView.setHasFixedSize(true);
+
+        // disable anim
+        RecyclerView.ItemAnimator animator = recyclerView.getItemAnimator();
+        if (animator instanceof SimpleItemAnimator) {
+            ((SimpleItemAnimator) animator).setSupportsChangeAnimations(false);
+        }
     }
 
     @Override
@@ -60,16 +67,16 @@ public class ChatDetailFragment extends Fragment implements BaseRecyclerAdapter.
     }
 
 
-    private class VerticalSpaceItemDecoration extends RecyclerView.ItemDecoration {
-        private final int verticalSpaceHeight;
-
-        public VerticalSpaceItemDecoration(int verticalSpaceHeight) {
-            this.verticalSpaceHeight = verticalSpaceHeight;
-        }
-
-        @Override
-        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-            outRect.bottom = verticalSpaceHeight;
-        }
-    }
+//    private class VerticalSpaceItemDecoration extends RecyclerView.ItemDecoration {
+//        private final int verticalSpaceHeight;
+//
+//        public VerticalSpaceItemDecoration(int verticalSpaceHeight) {
+//            this.verticalSpaceHeight = verticalSpaceHeight;
+//        }
+//
+//        @Override
+//        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+//            outRect.bottom = verticalSpaceHeight;
+//        }
+//    }
 }

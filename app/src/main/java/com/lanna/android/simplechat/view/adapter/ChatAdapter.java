@@ -1,11 +1,14 @@
 package com.lanna.android.simplechat.view.adapter;
 
+import android.databinding.ViewDataBinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lanna.android.simplechat.databinding.ItemChatBinding;
+import com.lanna.android.simplechat.databinding.ItemChatMeBinding;
+import com.lanna.android.simplechat.databinding.ItemChatOtherBinding;
 import com.lanna.android.simplechat.model.ChatMessage;
+import com.lanna.android.simplechat.viewmodel.ItemChatMeViewModel;
 import com.lanna.android.simplechat.viewmodel.ItemChatViewModel;
 import com.lanna.android.simplechat.viewmodel.ItemViewModel;
 
@@ -14,7 +17,7 @@ import com.lanna.android.simplechat.viewmodel.ItemViewModel;
  *
  */
 
-public class ChatAdapter extends BaseRecyclerAdapter<ChatMessage, SimpleBindingHolder<ItemChatBinding>> {
+public class ChatAdapter extends BaseRecyclerAdapter<ChatMessage, SimpleBindingHolder> {
 
     public ChatAdapter(OnItemClickListener<ChatMessage> onItemClickListener) {
         super(onItemClickListener);
@@ -26,22 +29,45 @@ public class ChatAdapter extends BaseRecyclerAdapter<ChatMessage, SimpleBindingH
 //    }
 
     @Override
-    public SimpleBindingHolder<ItemChatBinding> onCreateViewHolder(ViewGroup parent, int viewType) {
-        ItemChatBinding binding = ItemChatBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-        return new SimpleBindingHolder<ItemChatBinding>(binding, onItemClickListener) {
+    public SimpleBindingHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        ViewDataBinding binding;
+        if (viewType == ChatMessage.UserType.ME) {
+            binding = ItemChatMeBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        } else {
+            binding = ItemChatOtherBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        }
+
+        return new SimpleBindingHolder<ViewDataBinding>(binding, onItemClickListener) {
             @Override
             ItemViewModel getViewModelOnClick(View v) {
-                return binding.getViewModel();
+                return binding instanceof ItemChatMeBinding
+                        ? ((ItemChatMeBinding) binding).getViewModel()
+                        : ((ItemChatOtherBinding) binding).getViewModel();
             }
         };
     }
 
     @Override
-    public void onBindViewHolder(SimpleBindingHolder<ItemChatBinding> holder, int position) {
-        holder.binding.setViewModel(new ItemChatViewModel(position,
-                getItem(position), getItem(position - 1), getItem(position + 1)));
+    public void onBindViewHolder(SimpleBindingHolder holder, int position) {
+        if (holder.binding instanceof ItemChatMeBinding) {
+            ((ItemChatMeBinding) holder.binding).setViewModel(new ItemChatMeViewModel(position,
+                    getItem(position), getItem(position - 1), getItem(position + 1)));
+        } else {
+            ((ItemChatOtherBinding) holder.binding).setViewModel(new ItemChatViewModel(position,
+                    getItem(position), getItem(position - 1), getItem(position + 1)));
+        }
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return getItem(position).getUserType();
+    }
+
+//    @Override
+//    public void setItemsAndNotifyEach(List<ChatMessage> chatMessages) {
+//        super.setItemsAndNotifyEach(chatMessages);
+//        notifyItemChanged(getItemCount() - 2);
+//    }
 
     /*
         DiffCallback

@@ -1,5 +1,7 @@
 package com.lanna.android.simplechat;
 
+import android.graphics.Color;
+
 import com.lanna.android.simplechat.model.ChatMessage;
 import com.lanna.android.simplechat.viewmodel.ChatViewModel;
 
@@ -39,7 +41,7 @@ public class ChatViewModelUnitTest extends ApplicationTestCase {
     @Test
     public void tesAddChatOther() throws Exception {
         String testMessage = "other test message";
-        model.newMessage(new ChatMessage(-1, ChatMessage.UserType.OTHER, testMessage));
+        model.newMessage(new ChatMessage(-1, ChatMessage.UserType.OTHER, "A", testMessage, Color.BLUE));
 
         assertThat(1, is(model.items.size()));
         assertThat(testMessage, is(model.items.get(0).getMessage()));

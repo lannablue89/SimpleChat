@@ -12,7 +12,7 @@ import io.reactivex.Observer;
 
 public class ChatServiceModel {
 
-    public String[] FAKE_MESSAGES = {"lanna", "lanna 1", "lanna 2", "lanna 3", "lanna 4", "lanna 5", "lanna 6"};
+//    public String[] FAKE_MESSAGES = {"lanna", "lanna 1", "lanna 2", "lanna 3", "lanna 4", "lanna 5", "lanna 6"};
 
     private int userId;
 
@@ -23,18 +23,18 @@ public class ChatServiceModel {
     }
 
     public void startNormalMessageFlow(Observer<String> subscriber) {
-//        long startTime = System.currentTimeMillis();
+        long startTime = System.currentTimeMillis();
         Observable.zip(
-                Observable.range(1, 5)
+                Observable.range(1, 15)
 //                        .groupBy(n -> n % 5)
                         .map(n -> randomString(n * 30))
                 ,
                 Observable.interval(2500, TimeUnit.MILLISECONDS),
-                (obs, timer) -> obs
+                (obs, timer) -> (System.currentTimeMillis() - startTime) + "ms: " + obs
         )
 //                .doOnSubscribe(a -> System.out.println("start ======== " + a))
 //                .doOnNext(item -> System.out.println("Item: " + item + ", Time: " + (System.currentTimeMillis() - startTime) + "ms"))
-                .repeat(3)
+                .repeat()
                 .subscribe(subscriber)
         ;
 
@@ -46,7 +46,6 @@ public class ChatServiceModel {
 //                .repeat(2)
 //                .subscribe(subscriber)
 //        ;
-
     }
 
     private String randomString(int maxLen) {

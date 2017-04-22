@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.lanna.android.simplechat.viewmodel.ItemChatViewModel"
+            />
+    </data>
+
+    <TextView
+        android:id="@+id/tv_content"
+        bind:selected="@{viewModel.isMe}"
+        tools:background="@drawable/bg_item_chat"
+        tools:text="This is message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@{viewModel.background}"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/item_chat_min_height"
+        android:padding="@dimen/item_chat_padding"
+        android:text="@{viewModel.content}"
+        android:textColor="@color/item_chat_text_selector"
+        android:textSize="@dimen/textSize_caption"
+        />
+
+</layout>

@@ -1,7 +1,6 @@
 package com.lanna.android.simplechat.util;
 
 import android.databinding.BindingAdapter;
-import android.databinding.BindingConversion;
 import android.support.annotation.DimenRes;
 import android.support.annotation.DrawableRes;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,15 +24,19 @@ public class BindingConfigs {
     public static void bindItemsToList(RecyclerView rv, List items, int selection) {
         if (rv.getAdapter() != null) {
 //            LogUtils.i("rv", "setItemsAndNotify: " + items.size());
-            ((BaseRecyclerAdapter) rv.getAdapter()).setItemsAndNotify(items);
+            ((BaseRecyclerAdapter) rv.getAdapter()).setItemsAndNotifyEach(items);
         }
 
         if (selection >= 0) {
             if (rv.getLayoutManager() instanceof LinearLayoutManager) {
-//                LogUtils.d("rv", "set selection: " + selection);// + " in " + "{" + firstVisiblePos + "," + lastVisiblePos + "}");
-                rv.smoothScrollToPosition(selection);
+                int firstVisiblePos = ((LinearLayoutManager)rv.getLayoutManager()).findFirstVisibleItemPosition();
+                int lastVisiblePos = ((LinearLayoutManager)rv.getLayoutManager()).findLastVisibleItemPosition();
+                LogUtils.d("rv", "set selection: " + selection + " in " + "{" + firstVisiblePos + "," + lastVisiblePos + "}");
+                if (lastVisiblePos >= selection - 2) {
+                    rv.smoothScrollToPosition(selection);
+                }
             } else {
-                rv.scrollToPosition(selection);
+                rv.smoothScrollToPosition(selection);
             }
         }
     }
@@ -44,10 +47,10 @@ public class BindingConfigs {
 //    }
 
 
-    @BindingConversion
-    public static int convertBooleanToVisibility(boolean visible) {
-        return visible ? View.VISIBLE : View.GONE;
-    }
+//    @BindingConversion
+//    public static int convertBooleanToVisibility(boolean visible) {
+//        return visible ? View.VISIBLE : View.GONE;
+//    }
 
 
     @BindingAdapter({"android:background"})

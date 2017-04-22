@@ -3,8 +3,6 @@ package com.lanna.android.simplechat.view.adapter;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.lanna.android.simplechat.util.LogUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,6 +70,7 @@ public abstract class BaseRecyclerAdapter<Item, ViewHolder extends RecyclerView.
                 if (i >= mItems.size()) {
                     mItems.add(item);
                     notifyItemInserted(i);
+                    notifyItemChanged(i-1);
 //                    LogUtils.d("improve-list-notify", this, "setItemsAndNotify: insert at " + i);
                 }
                 else if (!item.equals(mItems.get(i))) {
@@ -79,11 +78,13 @@ public abstract class BaseRecyclerAdapter<Item, ViewHolder extends RecyclerView.
                     mItems.remove(i);
                     mItems.add(i, item);
                     notifyItemChanged(i);
+                    notifyItemChanged(i-1);
                 }
             }
             else if (i < mItems.size()) {
                 mItems.remove(i);
                 notifyItemRemoved(i);
+                notifyItemChanged(i-1);
 //                LogUtils.d("improve-list-notify", this, "setItemsAndNotify: remove at " + i);
             }
         }
