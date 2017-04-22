@@ -83,71 +83,61 @@ public class ItemChatViewModelTest extends ApplicationTestCase {
 
     private void verifyItemChat_LayoutSingle() {
         assertThat(model.dimenTop, is(R.dimen.item_chat_divider_large));
-        assertThat(model.avatarVisible, is(Constant.View.VISIBLE)); // visible
+        assertThat(model.avatarVisible, is(Constant.View.VISIBLE));
         assertThat(model.background, is(BG_SINGLE));
     }
 
 
-//    @Test
-//    public void testItemChatLayout_WhetherPrevOrAndNext() throws Exception { // has prev, no next
-//        model.bindData(0, message, messagePrev, messageNext);
-//
-//        when(messagePrev).thenReturn(null);
-//        when(messageNext).thenReturn(null);
+    @Test
+    public void testItemChatLayout_Single() throws Exception {
+        // SINGLE
+        messagePrev.setUserType(OTHER);
+        message.setUserType(ME);
+        messageNext.setUserType(OTHER);
+        model.bindData(0, message, messagePrev, messageNext);
 
-//        // same type
-//        when(messagePrev.getUserType()).thenReturn(ME);
-//
-//        assertThat(model.dimenTop, is(R.dimen.item_chat_divider_normal));
-//        assertThat(model.avatarVisible, is(true));
-//        assertThat(model.background, is(BG_TOP));
-//
-//        // different type
-//        when(messagePrev.getUserType()).thenReturn(OTHER);
-//
-//        assertThat(model.dimenTop, is(R.dimen.item_chat_divider_large));
-//        assertThat(model.avatarVisible, is(true));
-//        assertThat(model.background, is(BG_SINGLE));
-//    }
+        assertThat(model.dimenTop, is(R.dimen.item_chat_divider_large));
+        assertThat(model.avatarVisible, is(Constant.View.VISIBLE));
+        assertThat(model.background, is(BG_SINGLE));
+    }
 
-//
-//    @Test
-//    public void testItemChatLayoutHasNext() throws Exception { // no prev, has next
-//        model.bindData(0, message, null, messageNext);
-//
-//        // same type
-//        when(messageNext.getUserType()).thenReturn(ME);
-//
-//        assertThat(model.dimenTop, is(R.dimen.item_chat_divider_normal));
-//        assertThat(model.avatarVisible, is(false));
-//        assertThat(model.background, is(BG_TOP));
-//
-//        // different type
-//        when(messageNext.getUserType()).thenReturn(OTHER);
-//
-//        assertThat(model.dimenTop, is(R.dimen.item_chat_divider_normal));
-//        assertThat(model.avatarVisible, is(true));
-//        assertThat(model.background, is(BG_SINGLE));
-//    }
-//
-//
-//    @Test
-//    public void testItemChatLayoutHasPrevAndNext() throws Exception { // has prev, has next
-//        model.bindData(0, message, messagePrev, messageNext);
-//
-//        // same type
-//        when(messagePrev.getUserType()).thenReturn(ME);
-//        when(messageNext.getUserType()).thenReturn(ME);
-//
-//        assertThat(model.dimenTop, is(R.dimen.item_chat_divider_normal));
-//        assertThat(model.avatarVisible, is(false));
-//        assertThat(model.background, is(BG_MIDDLE));
-//
-//        // different type
-//        when(messageNext.getUserType()).thenReturn(OTHER);
-//
-//        assertThat(model.dimenTop, is(R.dimen.item_chat_divider_normal));
-//        assertThat(model.avatarVisible, is(true));
-//        assertThat(model.background, is(BG_SINGLE));
-//    }
+    @Test
+    public void testItemChatLayout_Bottom() throws Exception {
+        // BOTTOM
+        messagePrev.setUserType(ME);
+        message.setUserType(ME);
+        messageNext.setUserType(OTHER);
+        model.bindData(0, message, messagePrev, messageNext);
+
+        assertThat(model.dimenTop, is(R.dimen.item_chat_divider_normal));
+        assertThat(model.avatarVisible, is(Constant.View.VISIBLE));
+        assertThat(model.background, is(BG_BOTTOM));
+    }
+
+    @Test
+    public void testItemChatLayout_Middle() throws Exception {
+        // MIDDLE
+        messagePrev.setUserType(ME);
+        message.setUserType(ME);
+        messageNext.setUserType(ME);
+        model.bindData(0, message, messagePrev, messageNext);
+
+        assertThat(model.dimenTop, is(R.dimen.item_chat_divider_normal));
+        assertThat(model.avatarVisible, is(Constant.View.INVISIBLE));
+        assertThat(model.background, is(BG_MIDDLE));
+    }
+
+    @Test
+    public void testItemChatLayout_Top() throws Exception {
+        // TOP
+        messagePrev.setUserType(OTHER);
+        message.setUserType(ME);
+        messageNext.setUserType(ME);
+        model.bindData(0, message, messagePrev, messageNext);
+
+        assertThat(model.dimenTop, is(R.dimen.item_chat_divider_large));
+        assertThat(model.avatarVisible, is(Constant.View.INVISIBLE));
+        assertThat(model.background, is(BG_TOP));
+    }
+
 }
