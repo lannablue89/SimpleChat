@@ -26,6 +26,7 @@
         android:visibility="@{viewModel.avatarVisible}"
         bind:color="@{viewModel.avatarColor}"
         tools:text="o"
+        android:layout_gravity="bottom"
         />
 
 </layout>

@@ -16,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="left"
         bind:paddingLeft="@{viewModel.dimenLeft}"
         bind:paddingRight="@{viewModel.dimenRight}"
         bind:paddingTop="@{viewModel.dimenTop}"
