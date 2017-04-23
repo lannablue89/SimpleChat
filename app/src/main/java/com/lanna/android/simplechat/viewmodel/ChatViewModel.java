@@ -41,7 +41,7 @@ public class ChatViewModel extends ListViewModel<ChatMessage> {
             @Override
             public void onNext(List<ChatMessage> chatMessages) {
                 LogUtils.i(ChatViewModel.class, "onNext: " + chatMessages.get(chatMessages.size()-1));
-                newMessage(chatMessages);
+                setMessages(chatMessages);
             }
         }));
     }
@@ -61,7 +61,7 @@ public class ChatViewModel extends ListViewModel<ChatMessage> {
         return selection;
     }
 
-    public void newMessage(List<ChatMessage> items) {
+    public void setMessages(List<ChatMessage> items) {
         this.items = items;
         notifyDataChanged();
     }
